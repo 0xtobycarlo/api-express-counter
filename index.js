@@ -3,10 +3,11 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 
+const port = 3030;
+
 app.use(morgan("dev"));
 app.use(cors());
-
-const port = 3030;
+app.use(express.json());
 
 app.listen(port, () => {
   console.log(`Server is running on https://localhost:${port}/`);
