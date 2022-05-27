@@ -20,31 +20,32 @@ app.get("/", (req, res) => {
 
 let counter = 0;
 
-app.get("/counter", (req, res) => {
+app.get("/counter/:name", (req, res) => {
+  const counter = counters[req.params.name];
   res.json({ counter: counter });
 });
 
-app.post("/counter/increment", (req, res) => {
-  counter++;
-  res.json({ counter: counter });
+app.post("/counter/:name/increment", (req, res) => {
+  counter[req.params.name]++;
+  res.json({ counter: counters[req.params.name] });
 });
 
-app.post("/counter/decrement", (req, res) => {
-  counter--;
-  res.json({ counter: counter });
+app.post("/counter/:name/decrement", (req, res) => {
+  counter[req.params.name]--;
+  res.json({ counter: counters[req.params.name] });
 });
 
-app.post("/counter/double", (req, res) => {
-  counter *= 2;
-  res.json({ counter: counter });
+app.post("/counter/:name/double", (req, res) => {
+  counter[req.params.name] *= 2;
+  res.json({ counter: counters[req.params.name] });
 });
 
-app.delete("/counter", (req, res) => {
-  counter = 0;
-  res.json({ counter: counter });
+app.delete("/counter/:name", (req, res) => {
+  counter[req.params] = 0;
+  res.json({ counter: counter[req.params.name] });
 });
 
-app.put("/counter", (req, res) => {
+app.put("/counter/:name", (req, res) => {
   if (!req.query.value) {
     res.json({ counter: counter });
   }
